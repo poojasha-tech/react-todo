@@ -6,7 +6,7 @@ import React, { useState, useEffect, use } from 'react';
 import AddTodo from './MyComponents/AddTodo';
 import About from './MyComponents/About';
 import SignIn from './MyComponents/SignIn';
-import PropTypes from 'prop-types';
+import SignUp from './MyComponents/SignUp';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -16,13 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 function App() {
-  let initTodo;
-  if (localStorage.getItem("todos") === null) {
-    initTodo = [];
-  }
-  else {
-    initTodo = JSON.parse(localStorage.getItem("todos"));
-  }
+
 
 
 
@@ -71,33 +65,27 @@ function App() {
 
 
   // we will pass empty array as initial state, and safe todos in local storage
-  const [todos, setTodos] = useState(initTodo);
+  const [todos, setTodos] = useState([
+    {
+    sno: 1,
+    title: "Go to the market",
+    desc: "You need to go to the market to buy some vegetables",
+    completed: false
+  },
+  {
+    sno: 2,
+    title: "Go to the gym",
+    desc: "You need to go to the gym to stay fit",
+    completed: false
+  },
+  {
+    sno: 3,
+    title: "Go to the bank",
+    desc: "You need to go to the bank to deposit money",
+    completed: false
+  }
+  ]);
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-
-
-  // {
-  //   sno: 1,
-  //   title: "Go to the market",
-  //   desc: "You need to go to the market to buy some vegetables",
-  //   completed: false
-  // },
-  // {
-  //   sno: 2,
-  //   title: "Go to the gym",
-  //   desc: "You need to go to the gym to stay fit",
-  //   completed: false
-  // },
-  // {
-  //   sno: 3,
-  //   title: "Go to the bank",
-  //   desc: "You need to go to the bank to deposit money",
-  //   completed: false
-  // }
-  //]);
 
 
 
@@ -107,6 +95,11 @@ function App() {
         <Header title="MyTodoList" searchBar={false} />
 
         <Routes>
+          {/* <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} /> */}
+          {/* <Route path="/signin" element={<SignIn />} /> */}
+
+          <Route path="/signup" element={<SignUp />} />
           <Route
             path="/"
             element={
