@@ -3,12 +3,12 @@ import React from 'react';
 const Footer = () => {
 
   let footerStyle = {
-    position: "relative",
+    position: "realtive",
     top: "70vh",
     width: "100%",
     backgroundColor: "#343a40",
     color: "white",
-    padding: "10px 0"
+    textAlign: "center"
   }
 
   
