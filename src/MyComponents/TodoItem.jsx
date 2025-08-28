@@ -1,5 +1,5 @@
-
 import React from 'react'
+
 
 
 const TodoItem = ({todo,onDelete}) => {
@@ -8,6 +8,7 @@ const TodoItem = ({todo,onDelete}) => {
       <h4>{todo.title}</h4>
       <p>{todo.desc}</p>
       <button className="btn btn-sm btn-danger" onClick={()=>{onDelete(todo)}}>Delete</button>
+      {/* make a checkbox here to mark it completed */}
     
 
     </div>

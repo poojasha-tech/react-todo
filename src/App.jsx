@@ -16,35 +16,43 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 function App() {
+  const [todos, setTodos] = useState();
+  useEffect(() => {
+   getTodosFromDb().then(() => {} );
+  }, []);
+
+  async function getTodosFromDb() {
+            const requestOptions = {
+                method: "GET",
+                redirect: "follow",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("AUTH_API"),
+                }
+            }
+
+            const response = await fetch("http://localhost:3000/to-do", requestOptions);
+            const data = await response.json();
+            setTodos(data);
+        }
 
 
 
 
-  const addTodo = (title, desc) => {
-    console.log("I am adding this todo", title, desc);
 
-    let sno;
-    if (todos.length === 0) {
-      sno = 0;
-    } else {
-      sno = todos[todos.length - 1].sno + 1;
-    }
+
+  const addTodo = (id,title) => {
+
 
     const myTodo = {
-      sno: sno,
+      id: id,
       title: title,
-      desc: desc,
-      completed: false
+      marked: false
     }
-    console.log(myTodo);
     setTodos([...todos, myTodo]); // Spread operator to add new todo to the existing todos array
-    console.log(todos);
+ }
 
 
 
-
-
-  }
 
 
   const onDelete = (todo) => {
@@ -65,29 +73,36 @@ function App() {
 
 
   // we will pass empty array as initial state, and safe todos in local storage
-  const [todos, setTodos] = useState([
-    {
-    sno: 1,
-    title: "Go to the market",
-    desc: "You need to go to the market to buy some vegetables",
-    completed: false
-  },
-  {
-    sno: 2,
-    title: "Go to the gym",
-    desc: "You need to go to the gym to stay fit",
-    completed: false
-  },
-  {
-    sno: 3,
-    title: "Go to the bank",
-    desc: "You need to go to the bank to deposit money",
-    completed: false
-  }
-  ]);
+  
 
 
+  //   {
+  //   sno: 1,
+  //   title: "Go to the market",
+  //   desc: "You need to go to the market to buy some vegetables",
+  //   completed: false
+  // },
+  // {
+  //   sno: 2,
+  //   title: "Go to the gym",
+  //   desc: "You need to go to the gym to stay fit",
+  //   completed: false
+  // },
+  // {
+  //   sno: 3,
+  //   title: "Go to the bank",
+  //   desc: "You need to go to the bank to deposit money",
+  //   completed: false
+  // }
+  // ]);
+  // useEffect(() => {
+  //   let todos = localStorage.getItem("todos");
+  //   if (todos) {
+  //     setTodos(JSON.parse(todos));
+  //   }
 
+
+const [user, setUser] = useState(localStorage.getItem("user"));
 
   return (
     <>
@@ -95,18 +110,18 @@ function App() {
         <Header title="MyTodoList" searchBar={false} />
 
         <Routes>
-          {/* <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} /> */}
-          {/* <Route path="/signin" element={<SignIn />} /> */}
+          <Route path="/signin" element={<SignIn />} />
 
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/"
             element={
+              user ?(
               <>
                 <AddTodo addTodo={addTodo} />
                 <Todos todos={todos} onDelete={onDelete} />
               </>
+              ): (<SignIn setUser={setUser} />)
             }
           />
           <Route path="/about" element={<About />} />

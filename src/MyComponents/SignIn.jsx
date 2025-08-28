@@ -54,9 +54,8 @@ const SignIn = ({}) => {
             <h2>Sign In to continue and Conquer your Todos</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
+                    <label htmlFor="email" className="form-label">Email</label>
                     <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} id="email" name="email" aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
